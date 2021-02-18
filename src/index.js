@@ -1,12 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from '@apollo/react-hooks';
+import dotev from 'dotenv'
 import './index.css';
 import Home from './views/Home/Home';
+import { gql } from 'apollo-boost';
 import * as serviceWorker from './serviceWorker';
+
+dotev.config()
+
+const client = new ApolloClient({
+    uri: process.env.REACT_APP_BACK_END_URL,
+});
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <Home />
+      <ApolloProvider client={client}>
+          <Home />
+      </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
